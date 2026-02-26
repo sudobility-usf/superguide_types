@@ -1,6 +1,6 @@
 {
   "name": "@sudobility/superguide_types",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "description": "TypeScript types for Starter API - template project",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
