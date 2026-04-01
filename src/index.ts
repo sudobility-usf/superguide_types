@@ -120,6 +120,92 @@ export interface HistoryUpdateRequest {
 }
 
 // =============================================================================
+// Restaurant Search
+// =============================================================================
+
+/**
+ * Request body for searching restaurants by dish and location.
+ */
+export interface RestaurantSearchRequest {
+  /** The dish to search for */
+  dish: string;
+  /** The location to search near */
+  location: string;
+}
+
+/**
+ * A restaurant returned from the search API.
+ */
+export interface Restaurant {
+  /** Name of the restaurant */
+  restaurantname: string;
+  /** Address of the restaurant */
+  address: string;
+}
+
+/**
+ * Response containing a list of restaurants matching the search criteria.
+ */
+export interface RestaurantSearchResponse {
+  /** List of restaurants that serve the specified dish */
+  restaurants: Restaurant[];
+}
+
+// =============================================================================
+// Trip / Itinerary
+// =============================================================================
+
+/**
+ * A single scheduled item within a trip day (activity or restaurant).
+ */
+export interface ScheduleItem {
+  /** Whether this is an activity or restaurant stop */
+  type: 'activity' | 'restaurant';
+  /** Name of the place or activity */
+  name: string;
+  /** Address or location description */
+  location: string;
+  /** Start time in HH:mm format */
+  start_time: string;
+  /** End time in HH:mm format */
+  end_time: string;
+  /** Meal type (breakfast, lunch, dinner) — only present for restaurants */
+  meal?: string;
+}
+
+/**
+ * A single day within a generated itinerary.
+ */
+export interface ItinDay {
+  /** Day number (1-based) */
+  day: number;
+  /** Date in YYYY-MM-DD format */
+  date: string;
+  /** Ordered list of scheduled items for this day */
+  schedule: ScheduleItem[];
+}
+
+/**
+ * Request body for generating a trip itinerary.
+ */
+export interface TripGenerateRequest {
+  /** Destination city or location */
+  location: string;
+  /** Trip start date in YYYY-MM-DD format */
+  start_date: string;
+  /** Trip end date in YYYY-MM-DD format */
+  end_date: string;
+}
+
+/**
+ * Response containing a generated trip itinerary.
+ */
+export interface TripGenerateResponse {
+  /** The generated itinerary days */
+  itin: ItinDay[];
+}
+
+// =============================================================================
 // API Responses
 // =============================================================================
 
