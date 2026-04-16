@@ -206,6 +206,45 @@ export interface TripGenerateResponse {
 }
 
 // =============================================================================
+// Saved Trips (persisted per-user)
+// =============================================================================
+
+/**
+ * A trip that a user has generated and saved to their history.
+ *
+ * Persisted in `superguide.trips`. The itinerary is stored as JSON so the
+ * full day-by-day schedule round-trips without a dedicated join table.
+ */
+export interface Trip {
+  /** UUID primary key */
+  id: string;
+  /** Firebase UID of the owner */
+  user_id: string;
+  /** Destination / location string as the user entered it */
+  location: string;
+  /** Trip start date in YYYY-MM-DD format */
+  start_date: string;
+  /** Trip end date in YYYY-MM-DD format */
+  end_date: string;
+  /** Full generated itinerary (day-by-day schedule) */
+  itin: ItinDay[];
+  /** ISO 8601 creation timestamp */
+  created_at: string;
+}
+
+/**
+ * Request body for saving a newly generated trip.
+ *
+ * Omits server-owned fields (`id`, `user_id`, `created_at`).
+ */
+export interface TripCreateRequest {
+  location: string;
+  start_date: string;
+  end_date: string;
+  itin: ItinDay[];
+}
+
+// =============================================================================
 // API Responses
 // =============================================================================
 
